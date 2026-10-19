@@ -1,0 +1,80 @@
+{
+  "name": "genpark-agentic-commerce-rfq-volume-tiered-price-curve-regressor-skill",
+  "title": "B2B RFQ Volume Tiered Price Curve Regressor Skill",
+  "version": "1.0.0",
+  "description": "B2B procurement quote ingestion, economies-of-scale asymptotic power-law price curve fitting, marginal cost curve regression, and hidden surcharge detection for enterprise buyers. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "organization": {
+    "name": "GenPark Inc.",
+    "url": "https://www.genpark.ai",
+    "linkedin": "https://www.linkedin.com/company/92955550"
+  },
+  "mcp_version": "2024-11-05",
+  "category": "agentic-commerce",
+  "tools": [
+    {
+      "name": "fit_volume_price_elasticity_curve",
+      "description": "Fit supplier volume price brackets to power-law learning curve P(Q) = a * Q^b to evaluate volume discount fairness.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vendor_name": {
+            "type": "string"
+          },
+          "tiers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "type": "integer"
+                },
+                "unit_price_usd": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "quantity",
+                "unit_price_usd"
+              ]
+            }
+          }
+        },
+        "required": [
+          "vendor_name",
+          "tiers"
+        ]
+      }
+    },
+    {
+      "name": "identify_hidden_surcharge_break_points",
+      "description": "Audit volume steps for unearned flat fees, packaging markups, or false discounts where marginal unit cost increases.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tiers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "type": "integer"
+                },
+                "unit_price_usd": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "quantity",
+                "unit_price_usd"
+              ]
+            }
+          }
+        },
+        "required": [
+          "tiers"
+        ]
+      }
+    }
+  ]
+}
